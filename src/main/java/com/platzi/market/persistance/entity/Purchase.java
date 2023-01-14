@@ -4,7 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "compras")
@@ -17,11 +18,12 @@ public class Purchase {
     @Column(name = "id_compra")
     private Integer purchaseId;
 
-    @Column(name = "id_cliente")
-    private String clientId;
+    @ManyToOne
+    @JoinColumn(name = "id_cliente", insertable = false, updatable = false)
+    private Client client;
 
     @Column(name = "fecha")
-    private LocalDate date;
+    private LocalDateTime date;
 
     @Column(name = "metodo_pago")
     private String paymentMethod;
@@ -31,4 +33,7 @@ public class Purchase {
 
     @Column(name = "estado")
     private String state;
+
+    @OneToMany(mappedBy = "purchase")
+    private List<ProductPurchases> productPurchases;
 }
