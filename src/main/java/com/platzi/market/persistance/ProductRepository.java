@@ -1,32 +1,49 @@
 package com.platzi.market.persistance;
 
+import com.platzi.market.domain.ProductDTO;
 import com.platzi.market.persistance.crud.ProductCrudRepository;
 import com.platzi.market.persistance.entity.Product;
+import com.platzi.market.persistance.mapper.ProductMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class ProductRepository {
+public class ProductRepository implements com.platzi.market.domain.repository.ProductRepository {
 
-    private ProductCrudRepository productCrudRepository;
+    private final ProductCrudRepository productCrudRepository;
 
-    public List<Product> getAll(){
-        return (List<Product>) productCrudRepository.findAll();
+    private final ProductMapper mapper;
+
+
+    public ProductRepository(ProductCrudRepository productCrudRepository, ProductMapper mapper) {
+        this.productCrudRepository = productCrudRepository;
+        this.mapper = mapper;
     }
 
-    public List<Product> getByCategory(int categoryId){
-        return (List<Product>) productCrudRepository.findByCategoryIdOrderByNameAsc(categoryId);
+    public List<ProductDTO> getAll(){
+        List<Product> products = (List<Product>) productCrudRepository.findAll();
+        return mapper.toProductsDTO(products);
     }
 
-
-    public Optional<Product> getProduct(int productId){
-        return productCrudRepository.findById(productId);
+    public Optional<List<ProductDTO>> getByCategory(int categoryId){
+        List<Product> products = productCrudRepository.findByCategoryIdOrderByNameAsc(categoryId);
+        return Optional.of(mapper.toProductsDTO(products));
     }
 
-    public Product save(Product product){
-        return productCrudRepository.save(product);
+    @Override
+    public Optional<List<ProductDTO>> getScarseProducts(int quantity) {
+        return Optional.empty();
+    }
+
+    public Optional<ProductDTO> getProduct(int productId){
+        return productCrudRepository.findById(productId).map(product -> mapper.toProductDTO(product));
+    }
+
+    @Override
+    public ProductDTO save(ProductDTO productDTO) {
+        return mapper.toProductDTO(productCrudRepository.save(mapper.toProduct(productDTO)));
     }
 
     public void delete(int productId){
