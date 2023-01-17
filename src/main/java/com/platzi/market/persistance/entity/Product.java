@@ -30,7 +30,7 @@ public class Product {
     @Column(name = "codigo_barras")
     private String barCode;
 
-    @Column(name = "precio_ventas")
+    @Column(name = "precio_venta")
     private BigDecimal price;
 
     @Column(name = "cantidad_stock")
