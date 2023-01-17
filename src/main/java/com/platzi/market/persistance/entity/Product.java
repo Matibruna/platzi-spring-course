@@ -20,9 +20,12 @@ public class Product {
     @Column(name = "nombre")
     private String name;
 
+    @Column(name = "id_categoria")
+    private Integer categoryId;
+
     @ManyToOne
     @JoinColumn(name = "id_categoria", insertable = false, updatable = false)
-    private Category categody;
+    private Category category;
 
     @Column(name = "codigo_barras")
     private String barCode;

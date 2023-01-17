@@ -13,4 +13,5 @@ public class ProductDTO {
     private double price;
     private int stock;
     private boolean active;
+    private CategoryDTO category;
 }

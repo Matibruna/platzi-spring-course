@@ -19,7 +19,7 @@ public interface ProductMapper {
             @Mapping(source = "price", target = "price"),
             @Mapping(source = "stock", target = "stock"),
             @Mapping(source = "state", target = "active"),
-            @Mapping(source = "category", target = "dcategory")
+            @Mapping(source = "category", target = "category")
     })
     ProductDTO toProductDTO(Product product);
     List<ProductDTO> toProductsDTO(List<Product> products);

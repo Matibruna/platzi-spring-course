@@ -18,6 +18,6 @@ public interface CategoryMapper {
     CategoryDTO toCategoryDTO(Category category);
 
     @InheritInverseConfiguration
-    @Mapping(target = "productos", ignore = true)
+    @Mapping(target = "products", ignore = true)
     Category toCategory(CategoryDTO dCategory);
 }
