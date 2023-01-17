@@ -19,7 +19,7 @@ public class Client {
     @Column(name = "nombre")
     private String firstName;
 
-    @Column(name = "apellido")
+    @Column(name = "apellidos")
     private String lastName;
 
     @Column(name = "celular")

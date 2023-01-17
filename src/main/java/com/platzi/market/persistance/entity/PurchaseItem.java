@@ -10,10 +10,10 @@ import java.math.BigDecimal;
 @Table(name = "compras_productos")
 @Getter
 @Setter
-public class ProductPurchases {
+public class PurchaseItem {
 
     @EmbeddedId
-    private ProductPurchasesPK id;
+    private PurchaseItemPK id;
 
     @Column(name = "cantidad")
     private Integer amount;
@@ -24,6 +24,7 @@ public class ProductPurchases {
     private Boolean state;
 
     @ManyToOne
+    @MapsId("purchaseId")
     @JoinColumn(name = "id_compra", updatable = false, insertable = false)
     private Purchase purchase;
 

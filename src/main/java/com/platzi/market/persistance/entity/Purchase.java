@@ -18,6 +18,9 @@ public class Purchase {
     @Column(name = "id_compra")
     private Integer purchaseId;
 
+    @Column(name = "id_cliente")
+    private String clientId;
+
     @ManyToOne
     @JoinColumn(name = "id_cliente", insertable = false, updatable = false)
     private Client client;
@@ -25,7 +28,7 @@ public class Purchase {
     @Column(name = "fecha")
     private LocalDateTime date;
 
-    @Column(name = "metodo_pago")
+    @Column(name = "medio_pago")
     private String paymentMethod;
 
     @Column(name = "comentario")
@@ -34,6 +37,6 @@ public class Purchase {
     @Column(name = "estado")
     private String state;
 
-    @OneToMany(mappedBy = "purchase")
-    private List<ProductPurchases> productPurchases;
+    @OneToMany(mappedBy = "purchase", cascade = {CascadeType.ALL})
+    private List<PurchaseItem> productPurchases;
 }
