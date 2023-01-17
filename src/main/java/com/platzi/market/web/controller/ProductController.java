@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@SuppressWarnings("unused")
 @RestController
 @RequestMapping("/products")
 public class ProductController {
@@ -40,11 +41,11 @@ public class ProductController {
     }
 
     @DeleteMapping("/{productId}")
-    public ResponseEntity delete(@PathVariable("productId") int productId){
+    public ResponseEntity<?> delete(@PathVariable("productId") int productId){
         if(productService.delete(productId)){
-            return new ResponseEntity(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         }else{
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
     }
